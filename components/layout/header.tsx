@@ -7,6 +7,10 @@ import { Menu } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
 import { cn } from "@/lib/utils";
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -110,6 +114,7 @@ export function SiteHeader() {
                   <NavigationMenuLink asChild>
                     <Link
                       href={group.href ?? "#"}
+                      onClick={group.href === "/" ? scrollToTop : undefined}
                       className={cn(
                         "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent",
                         pathname === group.href && "text-foreground",
@@ -171,6 +176,7 @@ export function SiteHeader() {
                       <SheetClose asChild>
                         <Link
                           href={group.href}
+                          onClick={group.href === "/" ? scrollToTop : undefined}
                           className="rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:bg-accent"
                         >
                           {group.label}

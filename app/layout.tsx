@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/layout/header";
 import { SiteFooter } from "@/components/layout/footer";
 import { RevealOnScrollProvider } from "@/components/reveal-on-scroll-provider";
+import { BartiChat } from "@/components/barti-chat";
 import { siteConfig } from "@/lib/data/site-config";
 
 const fontDisplay = DM_Sans({
@@ -55,6 +56,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="pt-16">{children}</main>
           <SiteFooter />
+          <BartiChat />
         </ThemeProvider>
       </body>
     </html>

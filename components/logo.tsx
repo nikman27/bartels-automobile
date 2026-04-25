@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +19,7 @@ export function Logo({
   return (
     <Link
       href="/"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
         "inline-flex shrink-0 items-center transition-opacity hover:opacity-85",
         className,

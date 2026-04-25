@@ -89,6 +89,12 @@ export const mainNavigation: NavGroup[] = [
         description: "Fahrzeugexport weltweit",
         icon: "Globe",
       },
+      {
+        label: "Barti – KI-Assistent",
+        href: "#barti-fullscreen",
+        description: "Fragen, Probefahrt buchen & mehr – sofort per Chat",
+        icon: "Bot",
+      },
     ],
   },
   { label: "Sponsoring", href: "/sponsoring" },
