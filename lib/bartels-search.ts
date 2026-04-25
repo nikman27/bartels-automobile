@@ -86,7 +86,6 @@ export async function bartiSearchVehicles(params: {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: formData.toString(),
-    next: { revalidate: 300 },
   });
 
   if (!res.ok) throw new Error(`Bartels AJAX ${res.status}`);

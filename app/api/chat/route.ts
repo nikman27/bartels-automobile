@@ -1,6 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { bartiSearchVehicles } from "@/lib/bartels-search";
 
+export const runtime = "edge";
+
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SYSTEM_PROMPT = `Du bist Barti 🐻, der freundliche KI-Assistent von Bartels Automobile in Burgwedel (nahe Hannover).
