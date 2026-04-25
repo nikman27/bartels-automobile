@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { bartiSearchVehicles } from "@/lib/bartels-search";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -73,42 +74,16 @@ async function executeSearchVehicles(input: Record<string, unknown>): Promise<st
     fuel?: string;
   };
 
-  const params = new URLSearchParams({ category: category ?? "pkw", limit: "5" });
-  if (brand) params.set("brand", brand);
-  if (max_price) params.set("maxPrice", String(max_price));
-  if (max_mileage) params.set("maxMileage", String(max_mileage));
-  if (fuel) params.set("fuel", fuel);
-
   try {
-    const base = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
-    const res = await fetch(`${base}/api/vehicles?${params.toString()}`);
-    if (!res.ok) throw new Error(`Vehicles API ${res.status}`);
-
-    const data = await res.json() as {
-      total: number;
-      vehicles: Array<{
-        title: string;
-        priceFormatted: string;
-        url: string;
-        mileage: string;
-        date: string;
-        power: string;
-        fuel: string;
-        gearbox: string;
-        bodyType: string;
-        isNew: boolean;
-      }>;
-      maxPages: number;
-    };
-
-    const categoryUrl = category === "alle" ? "/fahrzeuge" : `/fahrzeuge/${category}`;
+    const result = await bartiSearchVehicles({ category: category ?? "pkw", brand, max_price, max_mileage, fuel });
+    const categoryUrl = category === "alle" ? "/fahrzeuge" : `/fahrzeuge/${category ?? "pkw"}`;
 
     return JSON.stringify({
       success: true,
-      total_found: data.total,
-      vehicles: data.vehicles,
+      total_found: result.total,
+      vehicles: result.vehicles,
       more_url: categoryUrl,
-      note: data.total === 0 ? "Keine Treffer mit diesen Filtern gefunden" : undefined,
+      note: result.total === 0 ? "Keine Treffer mit diesen Filtern gefunden" : undefined,
     });
   } catch (err) {
     return JSON.stringify({
